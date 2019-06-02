@@ -1,4 +1,5 @@
-import { Component, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import * as JsBarcode from 'jsbarcode';
 
 @Component({
@@ -6,25 +7,33 @@ import * as JsBarcode from 'jsbarcode';
   templateUrl: './barcode.component.html',
   styleUrls: ['./barcode.component.scss']
 })
-export class BarcodeComponent implements OnInit, AfterViewInit, AfterViewChecked {
+export class BarcodeComponent implements OnInit, AfterViewInit {
+  private queryParams: Params;
+  value: string;
+  barcodeValue: string;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
-    JsBarcode('#fixedBarcode', 'fixedBarcode', {
-      width: 3,
-    });
+    this.value = this.route.snapshot.paramMap.get('value');
+    JsBarcode('#fixedBarcode', 'fixedBarcode');
   }
 
   ngAfterViewInit() {
-    JsBarcode('#specifiedBarcode', 'specifiedBarcode', {
-      width: 3,
-    });
-  }
-
-  ngAfterViewChecked() {
-    JsBarcode('#interactiveBarcode', 'interactiveBarcode', {
-      width: 3,
-    });
+    if (this.value) {
+      JsBarcode('#greenBarcode', this.value, {
+        width: 5,
+        height: 200,
+        fontOptions: 'bold italic',
+        font: 'fantasy',
+        textPosition: 'top',
+        textMargin: 0,
+        fontSize: 50,
+        margin: 0,
+        background: '#C5E99B',
+        lineColor: '#77AF9C',
+      });
+    }
   }
 }

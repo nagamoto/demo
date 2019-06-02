@@ -3,7 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { BarcodeComponent } from './barcode/barcode.component';
 
 const routes: Routes = [
-  { path: 'barcode', component: BarcodeComponent }
+  { path: 'barcode', component: BarcodeComponent },
+  { path: 'barcode/:value', component: BarcodeComponent },
 ];
 
 @NgModule({
