@@ -10,6 +10,8 @@ export class BarcodeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    JsBarcode('#fixedBarcode', 'fixedBarcode', {
+      width: 3,
+    });
   }
-
 }
